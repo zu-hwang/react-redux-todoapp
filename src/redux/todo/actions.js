@@ -2,7 +2,7 @@ import {
   CREATE_TODO,
   UPDATE_TODO,
   DELETE_TODO,
-  CHECKED_TOGGLE,
+  // CHECKED_TOGGLE,
 } from 'src/redux/todo/types';
 
 /**
@@ -10,7 +10,7 @@ import {
  * export const 액션크리에이터이름 = (페이로드매개변수) => {
  *   return {
  *     type: 액션타입지정,
- *     payload: { state이름: 페이로드매개변수 }
+ *     payload: { 페이로드변수 : 페이로드매개변수 }
  *   };
  * };
  *
@@ -26,27 +26,27 @@ export const createTodo = (title) => {
   };
 };
 
-export const updateTodo = (todo) => {
+export const updateTodo = (todolist) => {
+  // 해당 인덱스 수정한 새로운 배열을 받는다.
   return {
     type: UPDATE_TODO,
-    payload: { todo },
+    payload: { todolist },
   };
 };
 
-export const deleteTodo = (selectIndex) => {
+export const deleteTodo = (todolist) => {
+  // 해당 인덱스 삭제한 새로운 배열을 받는다.
   return {
     type: DELETE_TODO,
-    payload: {
-      id: selectIndex,
-    },
+    payload: { todolist },
   };
 };
 
-export const checkedToggle = (selectIndex) => {
-  return {
-    type: CHECKED_TOGGLE,
-    payload: {
-      id: selectIndex,
-    },
-  };
-};
+// export const checkedToggle = (selectIndex) => {
+//   return {
+//     type: CHECKED_TOGGLE,
+//     payload: {
+//       id: selectIndex,
+//     },
+//   };
+// };
