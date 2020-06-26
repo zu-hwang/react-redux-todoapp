@@ -50,7 +50,7 @@ CRA --template redux로 todo app 만들기를 진행했다.
 - `createTodo()` : 객체를 배열에 추가하면 됬다. title만 payload로 받고, 나머지 `id`, `checked` 의 값은 리듀서에서 지정하였다.
 - `updateTodo()` : 업데이트 할때는 컴포넌트에서 객체변수를 생성하고 해당 인덱스로 **새 배열을 생성하고 payload**로 전달했다.
 
-## 루트리듀서 (`rootReducer.js`)
+## `combineReducer({리듀서1,리듀서2...})`
 
 `combineReducer()` 할때 인자는 꼭 **객체(object)**를 넣는다. 인자 여러개 형식으로 리듀서를 너봤자 에러만 난다!^^
 
