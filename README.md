@@ -74,3 +74,51 @@ export default compose(
   withRouter
 )(컴포넌트명);
 ```
+
+## 라우터
+
+[리액트 라우서 공식문서](https://reacttraining.com/react-router/web/guides/quick-start)
+
+### 라우터 Hook
+
+[리액트라우터 공식문서- 제공 Hook](https://reacttraining.com/react-router/web/api/Hooks)
+위 문서에서 hook에 4종류에 대해 알아보기. 사용법은 기존 방식과 거의~ 유사!
+
+- `useHistory` : route props.history hook ver.
+  ```js
+  import { useHistory } from 'react-router-dom';
+  let history = useHistory();
+  history.push('/home');
+  ```
+- `useParams`
+  ```js
+  import { useParams } from 'react-router-dom';
+  // Routes.js에 경로가 '/update/:id'라면 id = 파라미터명
+  let { id } = useParams(); // 주소창에 id부분에 들어간 값이 변수에 담긴다.
+  ```
+- `useRouteMatch`
+- `useLocation`
+
+### `withRouter()` 와 `history.push()`
+
+hook말고 이전에 사용하던 방법으로 진행해보자.
+
+`react-router-dom` 에서 제공하는 `withRouter()`를 통해 컴포넌트를 export 하게 되면 `props`에 `history` 속성이 추가 된다. `props.history.push('라우터경로')` 를 통해 주소창을 조정할 수 있으며, 라우터에 지정한 컴포넌트로 화면전환도 가능하다.
+
+```js
+import { withRouter } from 'react-router-dom';
+
+const 컴포명 = (props) => {
+  return (
+    <div>
+      <button onClick={() => props.history.push('/')}>홈으로</button>
+      <button onClick={() => props.history.push('/create')}>생성하기</button>
+    </div>
+  );
+};
+export default withRouter(컴포명);
+```
+
+### `match.params()`
+
+`history.push()`를 통해 주소창을 조정했다면, 이번엔 주소창에 있는 `params`를 추출해보자. Routes.js에서 각 경로마다 컴포넌트를 지정해 줬다(`/Routes.js`확인하기). 경로를 설정할때 경로에 지정한 파라미터(목록의 id 나 문자열 등)를 불러서 사용할때 `match.params('지정파라미터')` 을 통해 값을 얻을 수 있다. 상품상세페이지 같은 곳에 주로 사용한다!
