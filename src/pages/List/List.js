@@ -1,20 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Todo from 'src/components/Todo';
-import {
-  createTodo,
-  updateTodo,
-  deleteTodo,
-  checkedToggle,
-} from 'src/redux/todo/actions';
+import { createTodo, updateTodo, deleteTodo } from 'src/redux/todo/actions';
 
-const List = ({
-  todolist,
-  createTodo,
-  updateTodo,
-  deleteTodo,
-  checkedToggle,
-}) => {
+const List = ({ todolist, createTodo, updateTodo, deleteTodo }) => {
   console.log('List compo', todolist);
   const handleDeleteBtn = (e) => {
     console.log(e.target);
@@ -32,7 +21,6 @@ const List = ({
               checked={todo.checked}
               deleteTodo={deleteTodo}
               updateTodo={updateTodo}
-              checkedToggle={checkedToggle}
               handleDeleteBtn={handleDeleteBtn}></Todo>
           );
         })
@@ -55,5 +43,4 @@ export default connect(mapStateToProps, {
   createTodo,
   updateTodo,
   deleteTodo,
-  checkedToggle,
 })(List);
