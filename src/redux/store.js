@@ -5,14 +5,14 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import rootReducer from 'src/redux/rootReducer';
 
-// 로컬스토리지 데이터 읽기
-const readLocalStorageData = () => {
+const loadData = () => {
+  // 서버로 부터 테이터를 받는다. 여기에 fatch하면 될 듯!
   const todolist = [{ id: 0, title: '투두앱만들기', checked: false }];
   console.log('스토어 데이터 입히기', todolist);
   return { todolist };
 };
 
-const initState = readLocalStorageData();
+const initState = loadData();
 
 const store = createStore(
   rootReducer,

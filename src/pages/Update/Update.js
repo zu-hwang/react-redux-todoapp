@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Layout from 'src/components/Layout/';
-import { updateTodo } from 'src/redux/todo/actions';
+import { updateTodo } from 'src/redux';
 
 const Update = ({ history, todolist, updateTodo, match }) => {
   // ! 주소창에서 index 가저오기
