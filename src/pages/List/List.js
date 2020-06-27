@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import Todo from 'src/components/Todo';
 import { createTodo, updateTodo, deleteTodo } from 'src/redux/todo/actions';
 // import { URL } from 'src/urlconfig';
@@ -14,7 +15,7 @@ const List = ({ todolist, createTodo, updateTodo, deleteTodo }) => {
   };
 
   return (
-    <div>
+    <MainContainer>
       {todolist ? (
         todolist.map((todo, index) => {
           return (
@@ -32,7 +33,7 @@ const List = ({ todolist, createTodo, updateTodo, deleteTodo }) => {
       ) : (
         <p>내용없음</p>
       )}
-    </div>
+    </MainContainer>
   );
 };
 
@@ -49,3 +50,9 @@ export default connect(mapStateToProps, {
   updateTodo,
   deleteTodo,
 })(List);
+
+const MainContainer = styled.div`
+  width: 100%;
+  height: 420px;
+  overflow: scroll;
+`;
