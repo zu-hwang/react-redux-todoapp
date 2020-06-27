@@ -34,11 +34,11 @@ export const updateTodo = (todolist) => {
   };
 };
 
-export const deleteTodo = (todolist) => {
+export const deleteTodo = (id) => {
   // 해당 인덱스 삭제한 새로운 배열을 받는다.
   return {
     type: DELETE_TODO,
-    payload: { todolist },
+    payload: { id },
   };
 };
 

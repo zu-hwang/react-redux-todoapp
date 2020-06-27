@@ -1,20 +1,20 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-const Todo = ({ history, id, title, checked, handleDeleteBtn }) => {
+const Todo = ({ history, index, id, title, checked, handleDeleteBtn }) => {
   const handleUpdateBtn = (e) => {
     // todo : 수정페이지로 이동
     // console.dir(parseInt(e.target.parentNode.id));
-    history.push(`/update/${id}`);
+    history.push(`/update/${index}`);
   };
   return (
     <div
-      id={id + '-todo-key'}
+      id={id}
       style={{
         backgroundColor: 'tomato',
         width: '100%',
         padding: '20px',
       }}>
-      <span>{id} - </span>
+      <span>{index} - </span>
       <span>{title} - </span>
       <span>{checked ? '완료' : '아직'} - </span>
       <button onClick={handleDeleteBtn}>삭제</button>

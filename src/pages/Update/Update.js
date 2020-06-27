@@ -7,48 +7,33 @@ import { updateTodo } from 'src/redux';
 
 const Update = ({ history, todolist, updateTodo, match }) => {
   // ! 주소창에서 index 가저오기
-  // 1. props.match 를가저온뒤 params를 호출, 다음 Routes.js에서 설정한 params명을 붙인다. 나는 id라고 적었음으로 match.params.id 가 됬다.
-  // console.log('주소창 파라미터 가저오기', match.params.id); // 0 출력
-  const id = match.params.id;
-  const [todoList, setTodoList] = useState(todolist);
-  const [value, setValue] = useState(todolist[id].title);
+  const index = match.params.id; // index 목록 길이 까지의 인덱스
+  const id = todolist[index].id; // uuid
+  const [selectTodo, setSelectTodo] = useState(todolist[index]);
   const handleFocusInput = (e) => {
-    setValue('');
+    if (e.target.value === todolist[index].title) {
+      e.target.value = '';
+    }
   };
   const handleChangeValue = (e) => {
-    setValue(e.target.value);
+    setSelectTodo({ id, title: e.target.value, checked: selectTodo.checked });
   };
-  const deepClone = (newlist) => {
-    // 딥클론 하는 코드
-    todoList.map((todo) => newlist.push(todo));
-    // 딥클론 됬는지 확인, false가 나와야 한다.
-    console.log('같은고?', newlist === todoList);
+  const handleClickUpdate = (e) => {
+    // ! 조건부랜더링 + map()의 꿀조합으로 수정한 배열을 쉽게 작성!
+    const newTodolist = todolist.map((todo) =>
+      todo.id === id ? selectTodo : todo
+    );
+    updateTodo(newTodolist);
+    history.push('/'); // 페이지 이동
   };
-  const handleClickUpdate = () => {
-    // * 새로운 배열 반환 메서드 = concat(), map(), filter(), slice()
-    // 배열.concat(추가항목)은 : [...배열,추가항복]을 리턴한다!
-    const newTodoList = todoList.concat();
-    console.log('업뎃 딥클론 확인 false면 오케이 : ', newTodoList === todoList);
-    newTodoList[id].title = value;
-    console.log(value, newTodoList[id].title);
-    // ! 스토어 데이터 수정 - 업데이트 리듀서는 newTodoList 전체를 추가한다.. 리듀서를 그렇게 작성했다. 이방식이 싫으면 createTodo처럼 리듀서 작성하기!
-    updateTodo(newTodoList);
-    // 화면이동
-    history.push('/');
+  const handleToggleChecked = (e) => {
+    setSelectTodo({
+      id,
+      title: selectTodo.title,
+      checked: !selectTodo.checked,
+    });
   };
 
-  const handleToggleChecked = () => {
-    // 배열 내부 값 수정하려면.. 이렇게 밖에 안된느 걸까..
-    // 불변성 때문에 딥클론 할 변수 생성
-    let newlist = [];
-    deepClone(newlist);
-    // 배열 내부 값 변경
-    newlist[id].checked = !newlist[id].checked;
-    // 확인 콘솔찍기
-    console.log(todoList[id].checked, newlist[id].checked);
-    // 마지막 todoList 값 새로고침
-    setTodoList(newlist);
-  };
   return (
     <Layout>
       <div
@@ -60,17 +45,18 @@ const Update = ({ history, todolist, updateTodo, match }) => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-        }}>
-        <span>{id} - </span>
+        }}
+        id={id}>
+        <span>{index} - </span>
         <input
           style={{ padding: '5px' }}
           type='text'
-          value={value}
+          value={selectTodo.title}
           onFocus={handleFocusInput}
           onChange={handleChangeValue}
         />{' '}
         <button onClick={handleToggleChecked}>
-          {todoList[id].checked ? '완료' : '아직'}
+          {selectTodo.checked ? '완료' : '아직'}
         </button>
         <button onClick={handleClickUpdate}>수정</button>
       </div>
