@@ -271,3 +271,34 @@ id 값을 배열 길이로 줬다니 삭제했을때 id 중복이 생겨서 UUID
 import { v4 as uuid } from 'uuid';
 uuid(); // 랜덤값이 출력된다.
 ```
+
+---
+
+# styled-components
+
+`npm i styled-components` 로 설치
+
+```js
+import styled from 'styled-components';
+// 위 styled 속성 불러서 스타일 컴포넌트를 작성한다.
+```
+
+## reset css 적용하기
+
+설치 : `npm i styled-reset`
+
+`src/GlobalStyles.js`를 생성하고 글로벌적용할 스타일을 작성한다.
+
+- createGlobalStyle 모듈 부르기
+- reset.css 위치시키기(어째선지 box-sizing 설정이 안되어 있음, 추가 설정해야한다)
+- 최상위 컴포넌트에 위치시켜 컴포넌트가 랜더링 될때 전역 스타일 적용
+
+## ThemProvider
+
+테마를 선택할수 있게 돕는다. 다크모드 / 화이트모드
+
+---
+
+# font-awesome
+
+`npm i --save @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome`
