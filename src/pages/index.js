@@ -3,15 +3,10 @@
  */
 import React from 'react';
 
-import Layout from 'src/components/Layout/';
 import List from 'src/pages/List';
 
 function App() {
-  return (
-    <Layout>
-      <List />
-    </Layout>
-  );
+  return <List />;
 }
 
 export default App;

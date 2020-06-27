@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Footer = () => {
   return (
     <FooterContainer>
-      <p>20020.06.26 - 2020.06.27.</p>
+      <p>2020.06.26 - 2020.06.27.</p>
       <p>github@zu-hwang</p>
     </FooterContainer>
   );

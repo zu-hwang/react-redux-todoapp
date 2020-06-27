@@ -4,25 +4,44 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEraser, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const Todo = ({ history, index, id, title, checked, handleDeleteBtn }) => {
-  const handleUpdateBtn = (e) => {
+const Todo = ({
+  history,
+  index,
+  id,
+  title,
+  checked,
+  clickDeleteBtn,
+  setCheckedToggle,
+}) => {
+  const clickUpdateBtn = (e) => {
     // todo : 수정페이지로 이동
     // console.dir(parseInt(e.target.parentNode.id));
-    history.push(`/update/${index}`);
+    history.push(`/update/${id}`);
   };
+
   return (
-    <TodoContainer id={id}>
+    <TodoContainer>
       <LeftBox>
-        <CheckBox>{checked && <Checking />}</CheckBox>
+        <CheckBox onClick={() => setCheckedToggle(id)}>
+          {checked && <Checking />}
+        </CheckBox>
         <NumberBox>{index}</NumberBox>
         <Title>{title}</Title>
       </LeftBox>
       <ButtonBox>
-        <Button onClick={handleDeleteBtn}>
-          <FontAwesomeIcon icon={faTimes} />
+        <Button id={'todolist_id' + id}>
+          <FontAwesomeIcon
+            icon={faTimes}
+            id={'todolist_id' + id}
+            onClick={clickDeleteBtn}
+          />
         </Button>
-        <Button onClick={handleUpdateBtn}>
-          <FontAwesomeIcon icon={faEraser} />
+        <Button id={'todolist_id' + id}>
+          <FontAwesomeIcon
+            icon={faEraser}
+            id={'todolist_id' + id}
+            onClick={clickUpdateBtn}
+          />
         </Button>
       </ButtonBox>
     </TodoContainer>

@@ -28,7 +28,7 @@ const BodyContainer = styled.div`
 `;
 const CenterContainer = styled.div`
   border: 1px solid #ddd;
-  border-radius: 50px;
+  border-radius: 2px;
   height: 686px;
   width: 450px;
   background-color: brown;

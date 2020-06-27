@@ -1,39 +1,55 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import Layout from 'src/components/Layout/';
 import Todo from 'src/components/Todo';
-import { createTodo, updateTodo, deleteTodo } from 'src/redux/todo/actions';
-// import { URL } from 'src/urlconfig';
+import {
+  createTodo,
+  updateTodo,
+  deleteTodo,
+  checkedToggle,
+  sortTodolist,
+} from 'src/redux/todo/actions';
+import { deleteLS, checkedToggleLS } from 'src/util/LS';
+import { sortTodolist as utilSort } from 'src/util/sort';
 
-const List = ({ todolist, createTodo, updateTodo, deleteTodo }) => {
-  console.log('List compo', todolist);
-  const handleDeleteBtn = async (e) => {
-    const id = e.target.parentNode.id;
-    deleteTodo(id);
-    const newTodolist = todolist.filter((todo) => todo.id !== id);
-    window.localStorage.setItem('todolist', JSON.stringify(newTodolist));
+const List = ({ todolist, checkedToggle, updateTodo, deleteTodo }) => {
+  const clickDeleteBtn = (e) => {
+    console.log(e.target.parentNode.id);
+    const id = e.target.parentNode.id.split('todolist_id')[1];
+    console.log(id);
+    deleteLS(todolist, id);
+    deleteTodo(id); // 리덕스 수정 완료
   };
+  const setCheckedToggle = (id) => {
+    checkedToggle(id); // 리덕스 수정
+    checkedToggleLS(todolist, id); // 로컬스토리지 수정
+  };
+  useEffect(() => {
+    console.log('투두리스트 수정될때마다 실행', todolist);
+    sortTodolist(utilSort(todolist));
+  }, [todolist]);
 
   return (
-    <MainContainer>
-      {todolist ? (
-        todolist.map((todo, index) => {
-          return (
-            <Todo
-              key={todo.id}
-              id={todo.id}
-              index={index}
-              title={todo.title}
-              checked={todo.checked}
-              deleteTodo={deleteTodo}
-              updateTodo={updateTodo}
-              handleDeleteBtn={handleDeleteBtn}></Todo>
-          );
-        })
-      ) : (
-        <p>내용없음</p>
-      )}
-    </MainContainer>
+    <Layout>
+      <MainContainer>
+        {todolist &&
+          todolist.map((todo, index) => {
+            return (
+              <Todo
+                key={todo.id}
+                id={todo.id}
+                index={index + 1}
+                title={todo.title}
+                checked={todo.checked}
+                deleteTodo={deleteTodo}
+                updateTodo={updateTodo}
+                clickDeleteBtn={clickDeleteBtn}
+                setCheckedToggle={setCheckedToggle}></Todo>
+            );
+          })}
+      </MainContainer>
+    </Layout>
   );
 };
 
@@ -49,6 +65,8 @@ export default connect(mapStateToProps, {
   createTodo,
   updateTodo,
   deleteTodo,
+  checkedToggle,
+  sortTodolist,
 })(List);
 
 const MainContainer = styled.div`

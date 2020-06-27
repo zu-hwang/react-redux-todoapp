@@ -2,7 +2,8 @@ import {
   CREATE_TODO,
   UPDATE_TODO,
   DELETE_TODO,
-  // CHECKED_TOGGLE,
+  CHECKED_TOGGLE,
+  SORT_TODOLIST,
 } from 'src/redux/todo/types';
 
 /**
@@ -26,11 +27,11 @@ export const createTodo = (title) => {
   };
 };
 
-export const updateTodo = (todolist) => {
+export const updateTodo = (id, title) => {
   // 해당 인덱스 수정한 새로운 배열을 받는다.
   return {
     type: UPDATE_TODO,
-    payload: { todolist },
+    payload: { id, title },
   };
 };
 
@@ -42,11 +43,20 @@ export const deleteTodo = (id) => {
   };
 };
 
-// export const checkedToggle = (selectIndex) => {
-//   return {
-//     type: CHECKED_TOGGLE,
-//     payload: {
-//       id: selectIndex,
-//     },
-//   };
-// };
+export const checkedToggle = (id) => {
+  return {
+    type: CHECKED_TOGGLE,
+    payload: {
+      id,
+    },
+  };
+};
+
+export const sortTodolist = (newTodolist) => {
+  return {
+    type: SORT_TODOLIST,
+    payload: {
+      todolist: newTodolist,
+    },
+  };
+};
