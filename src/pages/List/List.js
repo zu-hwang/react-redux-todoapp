@@ -2,21 +2,26 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Todo from 'src/components/Todo';
 import { createTodo, updateTodo, deleteTodo } from 'src/redux/todo/actions';
+// import { URL } from 'src/urlconfig';
 
 const List = ({ todolist, createTodo, updateTodo, deleteTodo }) => {
   console.log('List compo', todolist);
-  const handleDeleteBtn = (e) => {
-    console.log(e.target);
+  const handleDeleteBtn = async (e) => {
+    const id = e.target.parentNode.id;
+    deleteTodo(id);
+    const newTodolist = todolist.filter((todo) => todo.id !== id);
+    window.localStorage.setItem('todolist', JSON.stringify(newTodolist));
   };
 
   return (
     <div>
       {todolist ? (
-        todolist.map((todo) => {
+        todolist.map((todo, index) => {
           return (
             <Todo
               key={todo.id}
               id={todo.id}
+              index={index}
               title={todo.title}
               checked={todo.checked}
               deleteTodo={deleteTodo}

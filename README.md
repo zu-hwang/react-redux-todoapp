@@ -5,9 +5,11 @@ CRA --template redux로 todo app 만들기를 진행했다.
 - 리덕스로 데이터 관리
 - todo 생성/수정/삭제/조회 기능을 구현
 - react-router로 페이지 이동
-- styled-components로 스타일 작성
+  ~~- styled-components로 스타일 작성~~ : 아직
 
 작업하면서 에러 발생했을때, 막혔던 것, 새롭게 알게된 것, 기타사항을 아래 정리하도록 하겠다.
+
+---
 
 ## 절대경로 설정
 
@@ -27,13 +29,15 @@ CRA --template redux로 todo app 만들기를 진행했다.
 
 리덕스를 추가하고 나서 폴더구조를 어떻게 해야 할지 계속 고민하다가, 유튜브 강의하는 분의 방식으로 작성하게 됐다. `/src/redux/` 에 리덕스 관련 파일을 정리했고, `store.js` , `rootReducer.js`, `index.js(액션크리에이터모음)` 파일을 위치시켰다. 컴포넌트별 폴더를 나누어 `/src/redux/[컴포명]/` 에는 각 `types.js`, `actions.js`, `reducer.js`를 위치하였다.
 
-- `src/redux/store.js` : 스토어 생성, 미들웨어/데브툴 지정, state초기화(서버로부터 데이터를 받는다)
+- `src/redux/store.js` : 스토어 생성, 미들웨어/데브툴 지정, state초기화
 - `src/redux/rootReducer.js` : 컴포넌트별로 나뉜 `reducer.js`파일을 `combineReducers()`를 통해 통합한다.
 - `src/redux/index.js` : 각 컴포넌트의 `actions.js` 파일의 통합본이다. 경로를 줄여쓰기 위해 `index.js`로 하였다.
 
 - `src/redux/[컴포명]/types.js`: 해당 컴포넌트의 액션타입 상수 지정
 - `src/redux/[컴포명]/actions.js`: 해당 컴포넌트의 액션크리에이터 함수 구현
 - `src/redux/[컴포명]/[컴포명]Reducer.js`: 해당 컴포넌트의 리듀서 구현
+
+---
 
 ## 액션-타입
 
@@ -74,6 +78,8 @@ export default compose(
   withRouter
 )(컴포넌트명);
 ```
+
+---
 
 ## 라우터
 
@@ -122,3 +128,146 @@ export default withRouter(컴포명);
 ### `match.params()`
 
 `history.push()`를 통해 주소창을 조정했다면, 이번엔 주소창에 있는 `params`를 추출해보자. Routes.js에서 각 경로마다 컴포넌트를 지정해 줬다(`/Routes.js`확인하기). 경로를 설정할때 경로에 지정한 파라미터(목록의 id 나 문자열 등)를 불러서 사용할때 `match.params('지정파라미터')` 을 통해 값을 얻을 수 있다. 상품상세페이지 같은 곳에 주로 사용한다!
+
+---
+
+# React-Hook
+
+## useState
+
+`useState()` 는 `[state, setState()]` 를 리턴한다.
+
+```js
+const [value, setValue] = useState('초기값');
+```
+
+과 같이 선언하는 것은 배열에 0번, 1번 인덱스 값을 나눈 것으로 생각하면 된다.
+
+```js
+const value = useState('초기값');
+console.log(value[0]); // '초기값'
+value[1]('변경된 값'); // setValue('변경된 값') 과 동일하다
+console.log(value[0]); // '변경된 값'
+```
+
+위 예제와 같이 사용할 수도 있다!
+
+## useEffect
+
+[리액트 공식문서 - Effect Hook 사용하기](https://ko.reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects)
+
+### `useEffect(CB)`
+
+`componentDidMount()` + `componentDidUpdate()` 합친 기능
+첫 랜더링 + 모든 업테이트 때 매번 실행되는 이팩트 함수
+
+### `useEffect(CB,[])`
+
+2번째 인자에 **빈배열**을 넘겨 주면 `componentDidMount()`와 동일한 기능으로 첫 페이디 로딩 1회만 실행 된다.
+
+### `useEffect(CB,[state])`
+
+2번인자에 `[state 배열]` 을 넘길때, **해당 state 값이 변경됬을때만 CB 실행**
+
+### `useEffect(클린업CB,[state or props])`
+
+해당 state, props의 값이 바뀔때 클린업 CB 실행
+
+## mock-데이터 패치 오류
+
+```
+List.js:28 Uncaught (in promise) SyntaxError: Unexpected token < in JSON at position 0
+```
+
+이런적 없었는데 패치하다 에러가 발생했다. `public/data/data.json` 경로에 목데이터를 두고 패치로 불러들였는데, json을 불러오지 못하고 있고..
+
+```js
+fetch(`${URL}/public/data/data.json`, {
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  },
+});
+```
+
+해더를 붙여 json지정해주었더니 이번엔 오류 코드가 바꼈다.
+
+```
+List.js:18 GET http://localhost:3000/public/data/data.json 404 (Not Found)
+```
+
+파일이 있는데 왜 404에러? 찾아가질 못할까? **문제는 경로에 있었다!!** **`public`을 제거하고 `http://localhost:3000/data/data.json`으로 작성해야 했다.**
+
+> fetch와 fs로 json 데이터 변경하려다 로컬스토리지에 저장하는 방식으로 바꿈!
+
+---
+
+# 리덕스x리액트에서 데이터 패치는 어디서 해야할까?
+
+처음에 데이터를 list 컴포넌트에서 작성했는데, 스토어와 리듀서의 state초기화때문에 값이 엉켜 리덕스에서 패치하러 이동!
+
+리덕스 스토어와 리듀서에는 state 초기값이 들어간다. 사이클이 **스토어 > 리듀서**로 지나가길래 처음에 스토어에 패치를 달았지만, 스토어에서 값이 잘 들어와도 리듀서에서 다시 state 초기화가 적용되면서 값이 날라가는 상태가 된다. 결국 **리듀서에서 데이터 패치를 했다**. 아직까진 문제는 없는데 여기에 하는 것이 맞는지는 잘..🧐
+
+---
+
+# LocalStorage/sessionStorage
+
+로컬스토리지와 세션스토리지는 동일한 메서드를 사용한다.
+`window.localStorage.메서드()`
+`window.sessionStorage.메서드()`
+
+## `getItem('키이름str')`
+
+데이터를 가저올때 문자열 형태로 가저오기 때문에, 만약 로컬스토리지에 저장된 문자열이 json 객체 형태라면 `JSON.parse(window.localstorage.getItem('key'))` 파싱해주어야 한다.
+
+## `setItem('키이름str','값str')`
+
+데이터를 저장할때도 마찬가지로 문자열로 저장해야 하기 때문에 복잡한 객채의 경우 json 형태 문자열로 저장하게 된다. 이때 js객체를 `JSON.stringify(데이터객체)`해주어야 한다.
+
+## `removeItem('키이름str')`
+
+해당 키와 값을 쌍으로 제거 한다.
+
+## `clear()`
+
+로컬스토리지에 있는 모든 아이템을 삭제한다.
+
+---
+
+# Array 메서드
+
+## 새로운 배열을 반환하는 메서드
+
+`concat()`, `map()`, `filter()`, `slice()`
+
+> ### 유용하게 쓰기
+>
+> **논리 && 연산자** :
+>
+> - true && expression : 일때는 항상 expression로 평가
+> - false && expression : 일때는 항상 false로 평가
+>
+> **조건부 연산자** : `condition ? true : false` ,
+>
+> store나 state로 관리하는 배열 객체에서 특정 인덱스의 값만 수정해야 할때! (`/src/pages/Update/Update.js`확인)
+>
+> `const newArray = array.map(arr => arr.id===id? newArr : arr)`
+>
+> 위 코드와 같이 `map()`와 **조건부 연산자 or if문** 을 통해 쉽게 표현 가능. **조건부연산자강추~!**
+
+---
+
+# UUID 모듈
+
+id 값을 배열 길이로 줬다니 삭제했을때 id 중복이 생겨서 UUID 모듈을 설치했다.
+`npm i uuid` 로 설치, 보통 v4사용한단다.
+
+- v1 : timestamp + random value
+- v3 : namespace + sha-1
+- v4 : random
+- v5 : namespace + md5
+
+```js
+import { v4 as uuid } from 'uuid';
+uuid(); // 랜덤값이 출력된다.
+```

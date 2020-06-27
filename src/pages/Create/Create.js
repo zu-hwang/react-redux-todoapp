@@ -2,21 +2,41 @@ import React, { useState } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
 import Layout from 'src/components/Layout/';
 import { createTodo } from 'src/redux/todo/actions';
-
 const Create = ({ history, todolist, createTodo }) => {
   // state = 인풋 벨류,
   const [value, setValue] = useState('');
+
   const handleInputValue = (e) => {
     setValue(e.target.value);
   };
+
   const handleClickBtn = (e) => {
+    // localstorage 추가
+    const LSUpdate = () => {
+      const newTodo = {
+        id: uuid(),
+        title: value,
+        checked: false,
+      };
+      let localstorageData = window.localStorage.getItem('todolist');
+      if (!localstorageData) {
+        window.localStorage.setItem('todolist', JSON.stringify([newTodo]));
+      } else {
+        const newTodolist = todolist.concat(newTodo);
+        window.localStorage.setItem('todolist', JSON.stringify(newTodolist));
+      }
+    };
+    LSUpdate();
+
     // 추가 리듀서는 title만 전달 받는다.
     createTodo(value);
     // 라우터 페이지 전환
     history.push('/');
   };
+
   return (
     <Layout>
       <div
