@@ -302,3 +302,14 @@ import styled from 'styled-components';
 # font-awesome
 
 `npm i --save @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome`
+
+
+--- 
+
+# 에러
+
+> #### TypeError: Cannot read property 'filter' of undefined
+ ```js
+ const title =todolist.filter((todo) => todo.id === id)[0].title
+ ```
+>다른때는 잘만되던 코드였는데, 갑자기 typeError를 호출하기 시작! **이유는 리듀서를 UPDATE_TODO가 아닌 UPDATE_INDEX...를 수정**했으니, `updateTodo()` 리듀서를 실행하면 todolist-state가 undefined가 됨!, 당연히 `undefined`에 `filter(), map(), length` 배열 속성,메서드를 쓸수가 없으니 typeError 발생!

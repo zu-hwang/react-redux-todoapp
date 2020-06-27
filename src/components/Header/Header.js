@@ -2,17 +2,19 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Header = ({ history }) => {
+const Header = ({ history, match }) => {
   const handleClickCreateBtn = (e) => {
     history.push('/create');
   };
+  console.log();
+
   return (
     <HeaderContainer>
       <TitleBox>
         <AppTitle>TODO APP</AppTitle>
         <SubTitle>REACT x REDUX</SubTitle>
       </TitleBox>
-      <ButtonBox>
+      <ButtonBox createMode={match.path === '/create' ? false : true}>
         <Button onClick={handleClickCreateBtn}>CREATE TODO</Button>
       </ButtonBox>
     </HeaderContainer>
@@ -51,9 +53,11 @@ const SubTitle = styled.p`
 const ButtonBox = styled.div`
   width: 100%;
   height: 70px;
-  background-color: #eee;
   padding: 0;
   margin: 0;
+  background-color: ${(props) => (props.createMode ? 'beige' : '#fff')};
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 `;
 
 const Button = styled.div`
@@ -66,8 +70,8 @@ const Button = styled.div`
   align-items: center;
   font-size: 30px;
   font-weight: 300;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-  background-color: #fff;
   color: #333;
+  &:hover {
+    cursor: pointer;
+  }
 `;
