@@ -1,5 +1,7 @@
 # TODO app with react-redux
 
+[![todoapp-snap-image](https://i.ibb.co/ZTrxCXx/todoapp-snap.jpg)](https://youtu.be/Xqcvxqo7nuY)
+
 CRA --template redux로 todo app 만들기를 진행했다.
 
 - 리덕스로 데이터 관리
