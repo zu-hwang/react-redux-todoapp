@@ -97,7 +97,7 @@ const CheckBox = styled.div`
 `;
 
 const Checking = styled.div`
-  background-color: ${style.brown};
+  background-color: ${style.red};
   width: 10px;
   height: 10px;
   border-radius: 15px;
