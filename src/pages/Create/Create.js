@@ -28,7 +28,6 @@ const Create = ({ history, todolist, createTodo }) => {
   };
 
   const pressKeyDown = (e) => {
-    console.dir(e.key);
     if (e.key === 'Enter') {
       clickCreateBtn(); // 버튼 클릭과 동일 이벤트
     }
@@ -58,16 +57,10 @@ const Create = ({ history, todolist, createTodo }) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log('state', state); // 왜 todoReducer가 뜰까염..
-  // console.log('state.todoReducer', state.todoReducer);
-  // console.log('state.todoReducer.todolist', state.todoReducer.todolist);
-  // console.log('ownProps', ownProps);
   return { todolist: state.todoReducer.todolist };
 };
 
-//* 리덕스 connect()와 라우터 withRouter()함께쓰려면 리덕스제공 compose()를 사용한다.
-// https://stackoverflow.com/questions/54247082/connect-and-withrouter-issue
-
+// 리덕스 connect()와 라우터 withRouter()함께쓰려면 리덕스제공 compose()를 사용한다.
 export default compose(
   connect(mapStateToProps, { createTodo }),
   withRouter
@@ -96,10 +89,8 @@ const CreateContainer = styled.div`
 `;
 
 const Input = styled.input`
-  padding: 0;
   margin: 0 15px 0 0;
   border: 0;
-  /* border-bottom: 1px solid #333; */
   background-color: rgba(255, 255, 255, 0);
   color: #333;
   font-size: 20px;

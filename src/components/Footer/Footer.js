@@ -1,37 +1,46 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { modalOn } from 'src/redux';
+import { style, flexCenter, notoSans } from 'src/util/style';
 
-const Footer = () => {
+const Footer = ({ modal, modalOn }) => {
+  const goToGitHub = () => {
+    modalOn(true); // modal on
+  };
   return (
     <FooterContainer>
-      <p>2020.06.26 - 2020.06.27.</p>
-      <p>github@zu-hwang</p>
+      <p>2020.06.26 - 2020.06.28.</p>
+      <p onClick={goToGitHub}>github@zu-hwang</p>
     </FooterContainer>
   );
 };
-
-export default Footer;
+const mapStateToProps = (state) => {
+  return { modal: state.footerReducer.modal };
+};
+export default connect(mapStateToProps, { modalOn })(Footer);
 
 const FooterContainer = styled.div`
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  background-color: #fff;
-  height: 70px;
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${notoSans}
+  ${flexCenter}
   flex-direction: column;
-  border-top: 1px solid #e5e5e5;
+  width: 100%;
+  height: 70px;
+  bottom: 0;
+  position: absolute;
+  background-color: ${style.white};
+  border-top: 1px solid ${style.lBorder};
   p {
     font-size: 12px;
-    font-weight: 300;
-    color: #333;
+    font-weight: 100;
+    color: ${style.black};
   }
   p:last-child {
-    font-weight: normal;
+    font-weight: 500;
     padding-top: 5px;
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
   }
 `;

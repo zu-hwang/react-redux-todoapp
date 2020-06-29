@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import todoReducer from 'src/redux/todo/todoReducer';
-// import headerReducer from 'src/redux/header/headerReducer';
+import footerReducer from 'src/redux/footer/footerReducer';
 
 // 리듀서는 객체로 전달한다!
 const rootReducer = combineReducers({
-  // headerReducer,
+  footerReducer,
   todoReducer,
 });
 

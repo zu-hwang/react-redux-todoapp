@@ -6,19 +6,11 @@ import {
   CHECKED_TOGGLE,
   SORT_TODOLIST,
 } from 'src/redux/todo/types';
-import { sortTodolist } from 'src/util/sort';
+import { loadingLS } from 'src/util/LS';
 
-let initState = {};
-let initTodolist = JSON.parse(window.localStorage.getItem('todolist'));
-const checkData = () => {
-  if (initTodolist) {
-    initTodolist = sortTodolist(initTodolist);
-    initState = { todolist: initTodolist };
-  } else {
-    initState = { todolist: [] };
-  }
+let initState = {
+  todolist: loadingLS(),
 };
-checkData();
 
 const todoReducer = (state = initState, action) => {
   switch (action.type) {
@@ -68,10 +60,12 @@ const todoReducer = (state = initState, action) => {
         todolist: checkedTodolist,
       };
     case SORT_TODOLIST:
+      // 정렬된 투두르스트 배열 받아 교체
       return {
         ...state,
-        todolist: action.payload.todolist,
+        todolist: action.payload.newTodolist,
       };
+
     default:
       return state;
   }

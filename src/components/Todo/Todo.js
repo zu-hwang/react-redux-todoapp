@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEraser, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { style, flexCenter, notoSans } from 'src/util/style';
 
 const Todo = ({
   history,
@@ -51,19 +52,18 @@ const Todo = ({
 export default withRouter(Todo);
 
 const TodoContainer = styled.div`
-  background-color: #f0f0f0;
+  ${flexCenter}
+  justify-content: space-between;
+  background-color: ${style.lGray};
   width: 100%;
   height: 70px;
-  border-bottom: 1px solid #e8e8e8;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  border-bottom: 1px solid ${style.lBorder};
   font-size: 20px;
   font-weight: 300;
   padding-left: 20px;
   padding-right: 20px;
   &:nth-child(odd) {
-    background-color: #f7f7f7;
+    background-color: ${style.llGray};
   }
   &:last-child {
     border-bottom: 0;
@@ -71,11 +71,12 @@ const TodoContainer = styled.div`
 `;
 
 const LeftBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${flexCenter}
 `;
 const NumberBox = styled.div`
+  ${notoSans}
+  font-weight:100;
+  color: ${style.black};
   width: 25px;
   padding: 5px;
   margin-right: 10px;
@@ -86,25 +87,26 @@ const NumberBox = styled.div`
 `;
 
 const CheckBox = styled.div`
-  border: 1px solid #ddd;
+  ${flexCenter}
+  border: 1px solid ${style.mBorder};
   width: 20px;
   height: 20px;
   margin-right: 10px;
   border-radius: 12px;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const Checking = styled.div`
-  background-color: brown;
+  background-color: ${style.brown};
   width: 10px;
   height: 10px;
   border-radius: 15px;
 `;
 
 const Title = styled.div`
+  ${notoSans}
+  font-weight:100;
+  color: ${style.black};
   width: 270px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -112,17 +114,14 @@ const Title = styled.div`
 `;
 
 const ButtonBox = styled.div`
-  width: 60px;
-  display: flex;
+  ${flexCenter}
   justify-content: flex-end;
-  align-items: center;
+  width: 60px;
 `;
 
 const Button = styled.div`
-  color: #aaa;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${flexCenter}
+  color: ${style.mGray};
   width: 30px;
   height: 30px;
 `;

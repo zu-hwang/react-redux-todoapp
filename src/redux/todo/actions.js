@@ -56,7 +56,7 @@ export const sortTodolist = (newTodolist) => {
   return {
     type: SORT_TODOLIST,
     payload: {
-      todolist: newTodolist,
+      newTodolist,
     },
   };
 };

@@ -18,7 +18,6 @@ const updateLS = (todolist, id, title) => {
   const newTodolist = todolist.map((todo) =>
     todo.id === id ? { id, title, checked: todo.checked } : todo
   );
-  console.log(newTodolist);
   window.localStorage.setItem('todolist', JSON.stringify(newTodolist));
 };
 
@@ -37,4 +36,12 @@ const checkedToggleLS = (todolist, id) => {
 const sortLS = (newTodolist) => {
   window.localStorage.setItem('todolist', JSON.stringify(newTodolist));
 };
-export { createLS, updateLS, deleteLS, checkedToggleLS, sortLS };
+
+const loadingLS = () => {
+  const todolist = JSON.parse(window.localStorage.getItem('todolist'));
+  if (!todolist) return [];
+  return todolist;
+};
+
+export { loadingLS, createLS, updateLS, deleteLS, checkedToggleLS, sortLS };
+

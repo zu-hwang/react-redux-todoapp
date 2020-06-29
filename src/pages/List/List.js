@@ -11,13 +11,10 @@ import {
   sortTodolist,
 } from 'src/redux/todo/actions';
 import { deleteLS, checkedToggleLS } from 'src/util/LS';
-import { sortTodolist as utilSort } from 'src/util/sort';
 
 const List = ({ todolist, checkedToggle, updateTodo, deleteTodo }) => {
   const clickDeleteBtn = (e) => {
-    console.log(e.target.parentNode.id);
     const id = e.target.parentNode.id.split('todolist_id')[1];
-    console.log(id);
     deleteLS(todolist, id);
     deleteTodo(id); // 리덕스 수정 완료
   };
@@ -26,14 +23,11 @@ const List = ({ todolist, checkedToggle, updateTodo, deleteTodo }) => {
     checkedToggleLS(todolist, id); // 로컬스토리지 수정
   };
   useEffect(() => {
-    console.log('투두리스트 수정될때마다 실행', todolist);
-    sortTodolist(utilSort(todolist));
-  }, [todolist]);
-
+  });
   return (
     <Layout>
       <MainContainer>
-        {todolist &&
+        {Array.isArray(todolist) &&
           todolist.map((todo, index) => {
             return (
               <Todo
@@ -55,10 +49,6 @@ const List = ({ todolist, checkedToggle, updateTodo, deleteTodo }) => {
 
 // ownProps 는 선택적 사용.
 const mapStateToProps = (state, ownProps) => {
-  // console.log('state', state); // 왜 todoReducer가 뜰까염..
-  // console.log('state.todoReducer', state.todoReducer);
-  // console.log('state.todoReducer.todolist', state.todoReducer.todolist);
-  // console.log('ownProps', ownProps);
   return { todolist: state.todoReducer.todolist };
 };
 export default connect(mapStateToProps, {

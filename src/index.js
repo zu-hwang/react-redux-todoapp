@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import Routes from 'src/Routes';
 import App from 'src/pages';
 import store from 'src/redux/store';
-import GlobalStyles from 'src/GlobalStyles.js';
+import GlobalStyles from 'src/util/GlobalStyles';
 
 ReactDOM.render(
   <React.StrictMode>

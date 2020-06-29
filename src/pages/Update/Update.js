@@ -17,7 +17,6 @@ const Update = ({ history, todolist, updateTodo, match }) => {
   const [inputValue, setInputValue] = useState(title);
   const changeInputValue = (e) => {
     setInputValue(e.target.value);
-    console.log(inputValue);
   };
   const clickUpdateBtn = (e) => {
     updateTodo(id, inputValue);
@@ -25,7 +24,6 @@ const Update = ({ history, todolist, updateTodo, match }) => {
     history.push('/'); // 페이지 이동
   };
   const pressKeyDown = (e) => {
-    console.dir(e.key);
     if (e.key === 'Enter') {
       clickUpdateBtn();
     }
@@ -59,10 +57,6 @@ const Update = ({ history, todolist, updateTodo, match }) => {
 
 // ownProps 는 선택적 사용.
 const mapStateToProps = (state, ownProps) => {
-  // console.log('state', state); // 왜 todoReducer가 뜰까염..
-  // console.log('state.todoReducer', state.todoReducer);
-  // console.log('state.todoReducer.todolist', state.todoReducer.todolist);
-  // console.log('ownProps', ownProps);
   return { todolist: state.todoReducer.todolist };
 };
 
@@ -83,9 +77,6 @@ const UpdateContainer = styled.div`
   font-weight: 300;
   padding-left: 20px;
   padding-right: 20px;
-  &:nth-child(odd) {
-    background-color: #f7f7f7;
-  }
   &:last-child {
     border-bottom: 0;
   }
