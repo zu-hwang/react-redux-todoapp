@@ -7,7 +7,6 @@ import {
   SORT_TODOLIST,
 } from 'src/redux/todo/types';
 import { loadingLS } from 'src/util/LS';
-// import utilSort from 'src/util/utilSort';
 
 let initState = {
   todolist: loadingLS(),

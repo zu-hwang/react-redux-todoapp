@@ -23,7 +23,6 @@ const List = ({ todolist, checkedToggle, updateTodo, deleteTodo }) => {
     checkedToggleLS(todolist, id); // 로컬스토리지 수정
   };
   useEffect(() => {
-    // console.log('LIST ON');
   });
   return (
     <Layout>
@@ -50,10 +49,6 @@ const List = ({ todolist, checkedToggle, updateTodo, deleteTodo }) => {
 
 // ownProps 는 선택적 사용.
 const mapStateToProps = (state, ownProps) => {
-  // console.log('state', state); // 왜 todoReducer가 뜰까염..
-  // console.log('state.todoReducer', state.todoReducer);
-  // console.log('state.todoReducer.todolist', state.todoReducer.todolist);
-  // console.log('ownProps', ownProps);
   return { todolist: state.todoReducer.todolist };
 };
 export default connect(mapStateToProps, {
