@@ -1,37 +1,48 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 import Header from 'src/components/Header';
 import Footer from 'src/components/Footer';
+import Modal from 'src/Modal/Modal';
 
-const Layout = ({ children }) => {
+import { style, flexCenter } from 'src/util/style';
+
+const Layout = ({ children, modal }) => {
   return (
-    <BodyContainer>
-      <CenterContainer>
-        <Header></Header>
-        {children}
-        <Footer></Footer>
-      </CenterContainer>
-    </BodyContainer>
+    <>
+      {modal && <Modal />}
+      <BodyContainer>
+        <CenterContainer>
+          <Header></Header>
+          {children}
+          <Footer></Footer>
+        </CenterContainer>
+      </BodyContainer>
+    </>
   );
 };
-export default Layout;
+
+const mapStateToProps = (state) => {
+  return {
+    modal: state.footerReducer.modal,
+  };
+};
+export default connect(mapStateToProps, {})(Layout);
 
 const BodyContainer = styled.div`
-  background-color: #eee;
+  background-color: ${style.bg};
   width: 100%;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${flexCenter}
   flex-direction: column;
 `;
 const CenterContainer = styled.div`
-  border: 1px solid #ddd;
-  border-radius: 50px;
+  border: 1px solid ${style.mBorder};
+  border-radius: 2px;
   height: 686px;
   width: 450px;
-  background-color: brown;
+  background-color: ${style.red};
   overflow: hidden;
   position: relative;
 `;

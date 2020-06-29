@@ -5,7 +5,7 @@ CRA --template redux로 todo app 만들기를 진행했다.
 - 리덕스로 데이터 관리
 - todo 생성/수정/삭제/조회 기능을 구현
 - react-router로 페이지 이동
-  ~~- styled-components로 스타일 작성~~ : 아직
+- styled-components로 스타일 작성 : 아직
 
 작업하면서 에러 발생했을때, 막혔던 것, 새롭게 알게된 것, 기타사항을 아래 정리하도록 하겠다.
 
@@ -292,13 +292,62 @@ import styled from 'styled-components';
 - createGlobalStyle 모듈 부르기
 - reset.css 위치시키기(어째선지 box-sizing 설정이 안되어 있음, 추가 설정해야한다)
 - 최상위 컴포넌트에 위치시켜 컴포넌트가 랜더링 될때 전역 스타일 적용
+- google webfont 적용 : `GlobalStyles.js`에 `@import`를 통해 추가하려고 했더니 하지말라는 알람이 떠서, `<link>` 태그를 `index.html <head>`에 추가했다.
+- css를 통해 자주쓰는 css속성묶어 변수화 : `src/util/style.js`에 정리하여 import하여 사용
+
 
 ## ThemProvider
 
-테마를 선택할수 있게 돕는다. 다크모드 / 화이트모드
+테마를 선택할수 있게 돕는다. 다크모드 / 화이트모드 : 투두앱에는 사용하지 않음
 
 ---
 
 # font-awesome
 
 `npm i --save @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome`
+
+
+--- 
+
+# 에러
+
+> #### TypeError: Cannot read property 'filter' of undefined
+ ```js
+ const title =todolist.filter((todo) => todo.id === id)[0].title
+ ```
+>다른때는 잘만되던 코드였는데, 갑자기 typeError를 호출하기 시작! **이유는 리듀서를 UPDATE_TODO가 아닌 UPDATE_INDEX...를 수정**했으니, `updateTodo()` 리듀서를 실행하면 todolist-state가 undefined가 됨!, 당연히 `undefined`에 `filter(), map(), length` 배열 속성,메서드를 쓸수가 없으니 typeError 발생!
+
+
+---
+
+# Modal
+
+footer 영역에 깃헙 링크버튼 클릭시 페이지이동에 대한 경고창이 뜨고, 이동버튼 클릭시 현재페이지에서 github repo로 이동하도록 url을 변경하였다.
+모달은 그냥 해보고싶어서..
+
+- `<Layout />`에 `<Modal/>`를 추가했으며, `redux store`에서 관리하는 `modal-state`가 `true` 일때 컴포넌트가 보이도록 설정
+
+## 주소창 url 변경하기
+깃헙 페이지로 이동할때 외부 url로 이동해야 하기때문에 javascript `window.location` 객체를 사용했다.
+
+```js
+  const goToGitHub = () => {
+    window.location.href = 'https://github.com/zu-hwang/react-redux-todoapp';
+  };
+```
+현재 페이지에서 이동함으로 modal-state는 off 하지 않아도 무관!
+
+## 외부 ulf - 새 탭 띄우기
+```js
+ const openTapGitHub = () => {
+    // 새탭에서 외부 url열기
+    modalOff();
+    window.open('https://github.com/zu-hwang/react-redux-todoapp', '_blank');
+  };
+```
+현재 페이지에서 모달창은 닫아주고, 새창에 외부url을 띄웠다.
+
+---
+
+
+

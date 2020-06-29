@@ -3,26 +3,46 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEraser, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { style, flexCenter, notoSans } from 'src/util/style';
 
-const Todo = ({ history, index, id, title, checked, handleDeleteBtn }) => {
-  const handleUpdateBtn = (e) => {
+const Todo = ({
+  history,
+  index,
+  id,
+  title,
+  checked,
+  clickDeleteBtn,
+  setCheckedToggle,
+}) => {
+  const clickUpdateBtn = (e) => {
     // todo : 수정페이지로 이동
     // console.dir(parseInt(e.target.parentNode.id));
-    history.push(`/update/${index}`);
+    history.push(`/update/${id}`);
   };
+
   return (
-    <TodoContainer id={id}>
+    <TodoContainer>
       <LeftBox>
-        <CheckBox>{checked && <Checking />}</CheckBox>
+        <CheckBox onClick={() => setCheckedToggle(id)}>
+          {checked && <Checking />}
+        </CheckBox>
         <NumberBox>{index}</NumberBox>
         <Title>{title}</Title>
       </LeftBox>
       <ButtonBox>
-        <Button onClick={handleDeleteBtn}>
-          <FontAwesomeIcon icon={faTimes} />
+        <Button id={'todolist_id' + id}>
+          <FontAwesomeIcon
+            icon={faTimes}
+            id={'todolist_id' + id}
+            onClick={clickDeleteBtn}
+          />
         </Button>
-        <Button onClick={handleUpdateBtn}>
-          <FontAwesomeIcon icon={faEraser} />
+        <Button id={'todolist_id' + id}>
+          <FontAwesomeIcon
+            icon={faEraser}
+            id={'todolist_id' + id}
+            onClick={clickUpdateBtn}
+          />
         </Button>
       </ButtonBox>
     </TodoContainer>
@@ -32,19 +52,18 @@ const Todo = ({ history, index, id, title, checked, handleDeleteBtn }) => {
 export default withRouter(Todo);
 
 const TodoContainer = styled.div`
-  background-color: #f0f0f0;
+  ${flexCenter}
+  justify-content: space-between;
+  background-color: ${style.lGray};
   width: 100%;
   height: 70px;
-  border-bottom: 1px solid #e8e8e8;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  border-bottom: 1px solid ${style.lBorder};
   font-size: 20px;
   font-weight: 300;
   padding-left: 20px;
   padding-right: 20px;
   &:nth-child(odd) {
-    background-color: #f7f7f7;
+    background-color: ${style.llGray};
   }
   &:last-child {
     border-bottom: 0;
@@ -52,11 +71,12 @@ const TodoContainer = styled.div`
 `;
 
 const LeftBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${flexCenter}
 `;
 const NumberBox = styled.div`
+  ${notoSans}
+  font-weight:100;
+  color: ${style.black};
   width: 25px;
   padding: 5px;
   margin-right: 10px;
@@ -67,25 +87,26 @@ const NumberBox = styled.div`
 `;
 
 const CheckBox = styled.div`
-  border: 1px solid #ddd;
+  ${flexCenter}
+  border: 1px solid ${style.mBorder};
   width: 20px;
   height: 20px;
   margin-right: 10px;
   border-radius: 12px;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const Checking = styled.div`
-  background-color: brown;
+  background-color: ${style.brown};
   width: 10px;
   height: 10px;
   border-radius: 15px;
 `;
 
 const Title = styled.div`
+  ${notoSans}
+  font-weight:100;
+  color: ${style.black};
   width: 270px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -93,17 +114,14 @@ const Title = styled.div`
 `;
 
 const ButtonBox = styled.div`
-  width: 60px;
-  display: flex;
+  ${flexCenter}
   justify-content: flex-end;
-  align-items: center;
+  width: 60px;
 `;
 
 const Button = styled.div`
-  color: #aaa;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${flexCenter}
+  color: ${style.mGray};
   width: 30px;
   height: 30px;
 `;
