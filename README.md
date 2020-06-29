@@ -1,6 +1,7 @@
 # TODO app with react-redux
 
 [![todoapp-snap-image](https://i.ibb.co/ZTrxCXx/todoapp-snap.jpg)](https://youtu.be/Xqcvxqo7nuY)
+> 이미지를 클릭하면 youtube 영상 페이지로 이동합니다.
 
 CRA --template redux로 todo app 만들기를 진행했다.
 
