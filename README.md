@@ -3,6 +3,8 @@
 [![todoapp-snap-image](https://i.ibb.co/ZTrxCXx/todoapp-snap.jpg)](https://youtu.be/Xqcvxqo7nuY)
 > 이미지를 클릭하면 youtube 영상 페이지로 이동합니다.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Xqcvxqo7nuY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 - 리덕스로 데이터 관리
 - todo 생성/수정/삭제/조회 기능을 구현
 - react-router로 페이지 이동
