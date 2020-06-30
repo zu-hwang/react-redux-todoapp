@@ -3,14 +3,44 @@
 [![todoapp-snap-image](https://i.ibb.co/ZTrxCXx/todoapp-snap.jpg)](https://youtu.be/Xqcvxqo7nuY)
 > 이미지를 클릭하면 youtube 영상 페이지로 이동합니다.
 
-CRA --template redux로 todo app 만들기를 진행했다.
-
 - 리덕스로 데이터 관리
 - todo 생성/수정/삭제/조회 기능을 구현
 - react-router로 페이지 이동
 - styled-components로 스타일 작성 : 아직
 
-작업하면서 에러 발생했을때, 막혔던 것, 새롭게 알게된 것, 기타사항을 아래 정리하도록 하겠다.
+
+# CRA프로젝트
+`$ npx create-react-app react-redux-todoapp --template redux`
+
+위 명령어를 통해 리액트+리덕스 프로젝트를 생성했다.
+
+## package.json
+```js
+{
+// 상단 생략
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.1.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.1.3",
+    "react-scripts": "3.4.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+// 하단 생략
+```
+리덕스 템플릿으로 지정했을때 기본 package.json의 모습이다. `@reduxjs/toolkit`, `react-redux` 가 설치된 것이 보이는데 `redux` 모듈은 보이지 않는다. 왜? `redux.js/toolkit`이 `redux`가 포함인가... [reduxjs/toolkit 깃헙](https://github.com/reduxjs/redux-toolkit)에서 확인해보니, 오호 그렇구나!
+더 궁금한것은 [redux toolkit 공식문서](https://redux-toolkit.js.org/) 에서 추가내용 살피기!
 
 ---
 
@@ -42,6 +72,7 @@ CRA --template redux로 todo app 만들기를 진행했다.
 
 ---
 
+# 
 ## 액션-타입
 
 액션타입은 이름표역할을 한다. 상수로 선언하여 보기좋게 관리하자!
