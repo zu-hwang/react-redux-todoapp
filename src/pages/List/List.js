@@ -8,11 +8,17 @@ import {
   updateTodo,
   deleteTodo,
   checkedToggle,
-  sortTodolist,
+  readTodo,
 } from 'src/redux/todo/actions';
 import { deleteLS, checkedToggleLS } from 'src/util/LS';
 
-const List = ({ todolist, checkedToggle, updateTodo, deleteTodo }) => {
+const List = ({
+  todolist,
+  checkedToggle,
+  updateTodo,
+  deleteTodo,
+  readTodo,
+}) => {
   const clickDeleteBtn = (e) => {
     const id = e.target.parentNode.id.split('todolist_id')[1];
     deleteLS(todolist, id);
@@ -22,10 +28,16 @@ const List = ({ todolist, checkedToggle, updateTodo, deleteTodo }) => {
     checkedToggle(id); // 리덕스 수정
     checkedToggleLS(todolist, id); // 로컬스토리지 수정
   };
-  useEffect(() => {
-  });
+//   useEffect(() => {
+//     // 여기에서 데이터 패치
+//     // readTodo(loadingLS());
+//     // 데이터 패치를 여기서 했더니 페이지가 2번 로드
+//     // console.log('LIST 데이터 패치 완료!');
+//   }, [readTodo]);
+
   return (
     <Layout>
+      {console.log('컴포넌트 렌더링 로드')}
       <MainContainer>
         {Array.isArray(todolist) &&
           todolist.map((todo, index) => {
@@ -56,7 +68,7 @@ export default connect(mapStateToProps, {
   updateTodo,
   deleteTodo,
   checkedToggle,
-  sortTodolist,
+  readTodo,
 })(List);
 
 const MainContainer = styled.div`

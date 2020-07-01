@@ -3,7 +3,7 @@ import {
   UPDATE_TODO,
   DELETE_TODO,
   CHECKED_TOGGLE,
-  SORT_TODOLIST,
+  READ_TODO,
 } from 'src/redux/todo/types';
 
 /**
@@ -52,11 +52,11 @@ export const checkedToggle = (id) => {
   };
 };
 
-export const sortTodolist = (newTodolist) => {
+export const readTodo = (todolist) => {
   return {
-    type: SORT_TODOLIST,
+    type: READ_TODO,
     payload: {
-      newTodolist,
+      todolist,
     },
   };
 };
