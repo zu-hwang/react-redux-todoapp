@@ -28,12 +28,12 @@ const List = ({
     checkedToggle(id); // 리덕스 수정
     checkedToggleLS(todolist, id); // 로컬스토리지 수정
   };
-  useEffect(() => {
-    // 여기에서 데이터 패치
-    // readTodo(loadingLS());
-    // 데이터 패치를 여기서 했더니 페이지가 2번 로드
-    // console.log('LIST 데이터 패치 완료!');
-  }, [readTodo]);
+//   useEffect(() => {
+//     // 여기에서 데이터 패치
+//     // readTodo(loadingLS());
+//     // 데이터 패치를 여기서 했더니 페이지가 2번 로드
+//     // console.log('LIST 데이터 패치 완료!');
+//   }, [readTodo]);
 
   return (
     <Layout>

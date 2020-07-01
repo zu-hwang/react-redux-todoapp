@@ -28,7 +28,6 @@ const Create = ({ history, todolist, createTodo }) => {
   };
 
   const pressKeyDown = (e) => {
-    // console.dir(e.key);
     if (e.key === 'Enter') {
       clickCreateBtn(); // 버튼 클릭과 동일 이벤트
     }
