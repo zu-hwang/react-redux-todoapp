@@ -72,7 +72,18 @@
 
 ---
 
-# 
+# 리덕스
+
+## 스토어
+- 스토어 생성 : `createStore(Reducer,initState,Middleware)`
+
+스토어는 전역의 state를 관리한다.
+`스토어.getState()` 메서드를 통해 전역의 state를 불러 사용할 수 있다.
+
+- redux-dev-tools : `npm i redux-devtools-extention`
+- 미들웨어 사용하기 : `composeWithDevTools(applyMiddleware(미들웨어1,미들웨어2,...))`
+  redux의 `applyMiddleware()`와 redux-dev-tools의 `composeWithDevTools()`
+
 ## 액션-타입
 
 액션타입은 이름표역할을 한다. 상수로 선언하여 보기좋게 관리하자!
