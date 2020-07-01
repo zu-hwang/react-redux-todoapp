@@ -4,21 +4,18 @@ import {
   UPDATE_TODO,
   DELETE_TODO,
   CHECKED_TOGGLE,
-  SORT_TODOLIST,
+  READ_TODO,
 } from 'src/redux/todo/types';
-import { loadingLS } from 'src/util/LS';
+
 // import utilSort from 'src/util/utilSort';
-
-let initState = {
-  todolist: loadingLS(),
-};
-
-const todoReducer = (state = initState, action) => {
-  switch (action.type) {
+console.log('투두리듀서 로드');
+const todoReducer = (state = {}, action) => {
+  const { type, payload } = action; // action 구조분해할당
+  switch (type) {
     case CREATE_TODO:
       const createTodolist = state.todolist.concat({
         id: uuid(),
-        title: action.payload.title,
+        title: payload.title,
         checked: false,
       });
       return {
@@ -28,10 +25,10 @@ const todoReducer = (state = initState, action) => {
 
     case UPDATE_TODO:
       const updateTodolist = state.todolist.map((todo) =>
-        todo.id === action.payload.id
+        todo.id === payload.id
           ? {
-              id: action.payload.id,
-              title: action.payload.title,
+              id: payload.id,
+              title: payload.title,
               checked: todo.checked,
             }
           : todo
@@ -43,7 +40,7 @@ const todoReducer = (state = initState, action) => {
 
     case DELETE_TODO:
       const deleteTodolist = state.todolist.filter(
-        (todo) => todo.id !== action.payload.id
+        (todo) => todo.id !== payload.id
       );
       return {
         ...state,
@@ -52,7 +49,7 @@ const todoReducer = (state = initState, action) => {
 
     case CHECKED_TOGGLE:
       const checkedTodolist = state.todolist.map((todo) =>
-        todo.id === action.payload.id
+        todo.id === payload.id
           ? { id: todo.id, title: todo.title, checked: !todo.checked }
           : todo
       );
@@ -60,11 +57,11 @@ const todoReducer = (state = initState, action) => {
         ...state,
         todolist: checkedTodolist,
       };
-    case SORT_TODOLIST:
+    case READ_TODO:
       // 정렬된 투두르스트 배열 받아 교체
       return {
         ...state,
-        todolist: action.payload.newTodolist,
+        todolist: payload.todolist,
       };
 
     default:

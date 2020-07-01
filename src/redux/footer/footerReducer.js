@@ -1,9 +1,6 @@
 import { MODAL_ON, MODAL_OFF } from './types';
-
-const initState = {
-  modal: false,
-};
-const footerReducer = (state = initState, action) => {
+console.log('푸터리듀서 로드');
+const footerReducer = (state = {}, action) => {
   switch (action.type) {
     case MODAL_ON:
       return {

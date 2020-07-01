@@ -8,7 +8,7 @@ export {
   updateTodo,
   deleteTodo,
   checkedToggle,
-  sortTodolist,
+  readTodo,
 } from 'src/redux/todo/actions';
 
 export { modalOn, modalOff } from 'src/redux/footer/actions';

@@ -1,4 +1,4 @@
-# TODO app with react-redux
+\*\*\*\*# TODO app with react-redux
 
 CRA --template redux로 todo app 만들기를 진행했다.
 
@@ -204,9 +204,20 @@ List.js:18 GET http://localhost:3000/public/data/data.json 404 (Not Found)
 
 # 리덕스x리액트에서 데이터 패치는 어디서 해야할까?
 
+## 리덕스 데이터 초기화
+
+> 리덕스의 파일 로드 순서 : 리듀서(연결된 리듀서 전부 순서대로 실행) > 스토어 > 컴포넌트
+
+- 스토어 데이터 초기화 : `combineReducer()`를 사용한다면 `{리듀서명 : { state명 : 초기값}}` 식으로 데이터를 담아야 한다.
+
+- state초기값의 위치 : 리덕스를 생성할때도 초기값이 필요하고, 스토어에도 초기값이 필요하다. **스토어에 초기화를 하고, 리듀서 생성할때는 빈 객체를 넣어주도록 하자**! 반대로 리듀서에서 데이터를 담고 스토어 초기값을 빈값을 입력했더니, 리덕스 파일 로드 순서에 따라 초기값이 덮어씌워졌다.
+
+## 데이터 패치
+
+<!--
 처음에 데이터를 list 컴포넌트에서 작성했는데, 스토어와 리듀서의 state초기화때문에 값이 엉켜 리덕스에서 패치하러 이동!
 
-리덕스 스토어와 리듀서에는 state 초기값이 들어간다. 사이클이 **스토어 > 리듀서**로 지나가길래 처음에 스토어에 패치를 달았지만, 스토어에서 값이 잘 들어와도 리듀서에서 다시 state 초기화가 적용되면서 값이 날라가는 상태가 된다. 결국 **리듀서에서 데이터 패치를 했다**. 아직까진 문제는 없는데 여기에 하는 것이 맞는지는 잘..🧐
+리덕스 스토어와 리듀서에는 state 초기값이 들어간다. 사이클이 **스토어 > 리듀서**로 지나가길래 처음에 스토어에 패치를 달았지만, 스토어에서 값이 잘 들어와도 리듀서에서 다시 state 초기화가 적용되면서 값이 날라가는 상태가 된다. 결국 **리듀서에서 데이터 패치를 했다**. 아직까진 문제는 없는데 여기에 하는 것이 맞는지는 잘..🧐 -->
 
 ---
 
@@ -295,7 +306,6 @@ import styled from 'styled-components';
 - google webfont 적용 : `GlobalStyles.js`에 `@import`를 통해 추가하려고 했더니 하지말라는 알람이 떠서, `<link>` 태그를 `index.html <head>`에 추가했다.
 - css를 통해 자주쓰는 css속성묶어 변수화 : `src/util/style.js`에 정리하여 import하여 사용
 
-
 ## ThemProvider
 
 테마를 선택할수 있게 돕는다. 다크모드 / 화이트모드 : 투두앱에는 사용하지 않음
@@ -306,17 +316,17 @@ import styled from 'styled-components';
 
 `npm i --save @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome`
 
-
---- 
+---
 
 # 에러
 
 > #### TypeError: Cannot read property 'filter' of undefined
- ```js
- const title =todolist.filter((todo) => todo.id === id)[0].title
- ```
->다른때는 잘만되던 코드였는데, 갑자기 typeError를 호출하기 시작! **이유는 리듀서를 UPDATE_TODO가 아닌 UPDATE_INDEX...를 수정**했으니, `updateTodo()` 리듀서를 실행하면 todolist-state가 undefined가 됨!, 당연히 `undefined`에 `filter(), map(), length` 배열 속성,메서드를 쓸수가 없으니 typeError 발생!
 
+```js
+const title = todolist.filter((todo) => todo.id === id)[0].title;
+```
+
+> 다른때는 잘만되던 코드였는데, 갑자기 typeError를 호출하기 시작! **이유는 리듀서를 UPDATE_TODO가 아닌 UPDATE_INDEX...를 수정**했으니, `updateTodo()` 리듀서를 실행하면 todolist-state가 undefined가 됨!, 당연히 `undefined`에 `filter(), map(), length` 배열 속성,메서드를 쓸수가 없으니 typeError 발생!
 
 ---
 
@@ -328,26 +338,27 @@ footer 영역에 깃헙 링크버튼 클릭시 페이지이동에 대한 경고�
 - `<Layout />`에 `<Modal/>`를 추가했으며, `redux store`에서 관리하는 `modal-state`가 `true` 일때 컴포넌트가 보이도록 설정
 
 ## 주소창 url 변경하기
+
 깃헙 페이지로 이동할때 외부 url로 이동해야 하기때문에 javascript `window.location` 객체를 사용했다.
 
 ```js
-  const goToGitHub = () => {
-    window.location.href = 'https://github.com/zu-hwang/react-redux-todoapp';
-  };
+const goToGitHub = () => {
+  window.location.href = 'https://github.com/zu-hwang/react-redux-todoapp';
+};
 ```
+
 현재 페이지에서 이동함으로 modal-state는 off 하지 않아도 무관!
 
 ## 외부 ulf - 새 탭 띄우기
+
 ```js
- const openTapGitHub = () => {
-    // 새탭에서 외부 url열기
-    modalOff();
-    window.open('https://github.com/zu-hwang/react-redux-todoapp', '_blank');
-  };
+const openTapGitHub = () => {
+  // 새탭에서 외부 url열기
+  modalOff();
+  window.open('https://github.com/zu-hwang/react-redux-todoapp', '_blank');
+};
 ```
+
 현재 페이지에서 모달창은 닫아주고, 새창에 외부url을 띄웠다.
 
 ---
-
-
-
