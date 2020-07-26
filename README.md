@@ -1,6 +1,6 @@
 # TODO app with react-redux
 
-[![todoapp-snap-image](https://i.ibb.co/ZTrxCXx/todoapp-snap.jpg)](https://youtu.be/Xqcvxqo7nuY)
+[![todoapp-snap-image](https://i.ibb.co/ZTrxCXx/todoapp-snap.jpg)](https://youtu.be/d5b1e-SiqRo)
 > 이미지를 클릭하면 youtube 영상 페이지로 이동합니다.
 
 - 리덕스로 데이터 관리
